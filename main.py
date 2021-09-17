@@ -4,6 +4,7 @@ from forms import SubmitPlayers
 from mplsoccer import FontManager
 from chart import chart_maker
 import pandas as pd
+import random
 
 URL4 = 'https://github.com/googlefonts/roboto/blob/main/src/hinted/Roboto-Thin.ttf?raw=true'
 robotto_thin = FontManager(URL4)
@@ -33,12 +34,23 @@ Bootstrap(app)
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    form = SubmitPlayers()
+    random_player_1 = random.choice(players)
+    random_player_2 = random.choice(players)
+    while random_player_1 == random_player_2:
+        random_player_2 = random.choice(players)
+    form = SubmitPlayers(
+        player_1=random_player_1,
+        player_2=random_player_2
+    )
     if form.validate_on_submit():
         player_1 = form.player_1.data
         player_2 = form.player_2.data
-        chart_maker(player_1, player_2, df, robotto_thin, robotto_regular, robotto_bold)
-        return redirect(url_for("result"))
+        try:
+            chart_maker(player_1, player_2, df, robotto_thin, robotto_regular, robotto_bold)
+            return redirect(url_for("result"))
+        except IndexError:
+            flash(f"Player(s) not in list", 'info')
+            return render_template("index.html", form=form, players=players)
     return render_template("index.html", form=form, players=players)
 
 

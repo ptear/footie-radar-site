@@ -13,10 +13,23 @@
 <body>
 
 <section id="form">
+    <div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }} alert-dismissible" role="alert">
+          <!-- <strong>Title</strong> --> {{ message }}
+          </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+    </div>
     <div class="container-sm">
         <h1>Give two players to compare</h1>
         <p>Choose from:</p>
         <p>{{ players }}</p>
+        <p><em>This list is all players who have played more than 2 full games and are classified as a forward on FBref.</em></p>
         {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
     </div>
 </section>
