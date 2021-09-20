@@ -13,11 +13,11 @@
 <body>
 
 <section id="image">
-    <div class="container-sm">
-        <h1><a href="{{ url_for('home') }}">Make another comparison</a></h1>
+    <div class="text-center">
+        <a class="btn btn-primary" href="{{ url_for('home') }}">Make another comparison</a>
     </div>
-    <div class="container-sm">
-        <img src="{{ image }}" style="max-height: 100vh" class="img-fluid">
+    <div class="text-center">
+        <img src="data:image/png;base64,{{ data }}" style="max-height: 100vh" class="img-fluid">
     </div>
 </section>
 

@@ -5,6 +5,7 @@ from mplsoccer import FontManager
 from chart import chart_maker
 import pandas as pd
 import random
+import base64
 
 URL4 = 'https://github.com/googlefonts/roboto/blob/main/src/hinted/Roboto-Thin.ttf?raw=true'
 robotto_thin = FontManager(URL4)
@@ -46,17 +47,18 @@ def home():
         player_1 = form.player_1.data
         player_2 = form.player_2.data
         try:
-            chart_maker(player_1, player_2, df, robotto_thin, robotto_regular, robotto_bold)
-            return redirect(url_for("result"))
+            img = chart_maker(player_1, player_2, df, robotto_thin, robotto_regular, robotto_bold)
+
+            # convert to bases64
+            data = img.read()  # get data from file (BytesIO)
+            data = base64.b64encode(data)  # convert to base64 as bytes
+            data = data.decode()  # convert bytes to string
+
+            return render_template("result.html", data=data)
         except IndexError:
             flash(f"Player(s) not in list", 'info')
             return render_template("index.html", form=form, players=players)
     return render_template("index.html", form=form, players=players)
-
-
-@app.route("/result")
-def result():
-    return render_template("result.html", image="static/images/radar.jpg")
 
 
 if __name__ == "__main__":

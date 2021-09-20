@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 from mplsoccer import Radar
+import io
 
 
 def chart_maker(p1, p2, df, font_1, font_2, font_3):
@@ -97,4 +98,9 @@ def chart_maker(p1, p2, df, font_1, font_2, font_3):
                                     fontproperties=font_2.prop,
                                     ha='right', va='center', color='#d80499')
 
-    plt.savefig("static/images/radar.jpg")
+    # convert to file-like data
+    obj = io.BytesIO()             # file in memory to save image without using disk  #
+    plt.savefig(obj, format='png')    # save in file (BytesIO) #
+    obj.seek(0)                    # move to beginning of file (BytesIO) to read it   #
+
+    return obj
