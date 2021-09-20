@@ -57,8 +57,8 @@ def home():
             return render_template("result.html", data=data)
         except IndexError:
             flash(f"Player(s) not in list", 'info')
-            return render_template("index.html", form=form, players=players)
-    return render_template("index.html", form=form, players=players)
+            return render_template("index.html", form=form)
+    return render_template("index.html", form=form)
 
 
 if __name__ == "__main__":
