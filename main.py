@@ -61,5 +61,15 @@ def home():
     return render_template("index.html", form=form)
 
 
+@app.route("/pca-2")
+def pca2():
+    return render_template("2_components.html")
+
+
+@app.route("/pca-3")
+def pca3():
+    return render_template("3_components.html")
+
+
 if __name__ == "__main__":
     app.run()
