@@ -11,6 +11,8 @@ def chart_maker(p1, p2, df, font_1, font_2, font_3):
     player_2 = p2
     club_1 = df[df["Player"] == player_1]["Squad"].values[0]
     club_2 = df[df["Player"] == player_2]["Squad"].values[0]
+    nineties_1 = df[df["Player"] == player_1]["90s"].values[0]
+    nineties_2 = df[df["Player"] == player_2]["90s"].values[0]
 
     # compute and analyse
     df_new = pd.concat([df[(df["Player"] == player_1)], df[(df["Player"] == player_2)]]).reset_index()
@@ -86,17 +88,25 @@ def chart_maker(p1, p2, df, font_1, font_2, font_3):
     # Note we are slightly offsetting the text from the edges by 0.01 (1%, e.g. 0.99)
     endnote_text = axs['endnote'].text(0.99, 0.5, 'Inspired By: StatsBomb / Rami Moghadam', fontsize=15,
                                        fontproperties=font_1.prop, ha='right', va='center')
+    titlexy_text= axs['title'].text(0.42, 0.25, "games played", fontsize=25, color='black',
+                                    fontproperties=font_3.prop, ha='left', va='center')
     title1_text = axs['title'].text(0.01, 0.65, player_1, fontsize=25, color='#01c49d',
                                     fontproperties=font_3.prop, ha='left', va='center')
     title2_text = axs['title'].text(0.01, 0.25, club_1, fontsize=20,
                                     fontproperties=font_2.prop,
                                     ha='left', va='center', color='#01c49d')
+    titlex_text = axs['title'].text(0.35, 0.25, nineties_1, fontsize=20,
+                                    fontproperties=font_2.prop,
+                                    ha='right', va='center', color='#01c49d')
     title3_text = axs['title'].text(0.99, 0.65, player_2, fontsize=25,
                                     fontproperties=font_3.prop,
                                     ha='right', va='center', color='#d80499')
     title4_text = axs['title'].text(0.99, 0.25, club_2, fontsize=20,
                                     fontproperties=font_2.prop,
                                     ha='right', va='center', color='#d80499')
+    titley_text = axs['title'].text(0.65, 0.25, nineties_2, fontsize=20,
+                                    fontproperties=font_2.prop,
+                                    ha='left', va='center', color='#d80499')
 
     # convert to file-like data
     obj = io.BytesIO()             # file in memory to save image without using disk  #

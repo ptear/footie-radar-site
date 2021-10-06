@@ -71,5 +71,10 @@ def pca3():
     return render_template("3_components.html")
 
 
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
+
 if __name__ == "__main__":
     app.run()
