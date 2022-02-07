@@ -5,15 +5,15 @@ import pandas as pd
 
 
 # read in data
-# df = pd.read_csv("data.csv")
-df = pd.read_html("https://fbref.com/en/comps/Big5/shooting/players/Big-5-European-Leagues-Stats")[0]
-cols_temp = [row[1] for row in df.columns]
-df.columns = cols_temp
-df = df[df["Comp"] == "eng Premier League"]
-for col in df.columns[8:-1]:
-    df[col] = pd.to_numeric(df[col])
-index_names = df[df['Player'] == 'Mason Greenwood'].index
-df.drop(index_names, inplace=True)
+df = pd.read_csv("data.csv")
+# df = pd.read_html("https://fbref.com/en/comps/Big5/shooting/players/Big-5-European-Leagues-Stats")[0]
+# cols_temp = [row[1] for row in df.columns]
+# df.columns = cols_temp
+# df = df[df["Comp"] == "eng Premier League"]
+# for col in df.columns[8:-1]:
+#     df[col] = pd.to_numeric(df[col])
+# index_names = df[df['Player'] == 'Mason Greenwood'].index
+# df.drop(index_names, inplace=True)
 df["Player"] = df["Player"].str.split("\\", expand=True)[0]
 
 # filter data to only forwards that have played more than 2 full games
