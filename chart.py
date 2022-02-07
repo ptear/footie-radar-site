@@ -17,7 +17,7 @@ def chart_maker(p1, p2, df, font_1, font_2, font_3):
     # compute and analyse
     df_new = pd.concat([df[(df["Player"] == player_1)], df[(df["Player"] == player_2)]]).reset_index()
     df_new = df_new.drop(
-        ["index", "Rk", "Nation", "Pos", "Squad", "Age", "Born", "90s", "FK", "PK", "PKatt", "Matches"], axis=1)
+        ["index", "Comp", "Rk", "Nation", "Pos", "Squad", "Age", "Born", "90s", "FK", "PK", "PKatt", "Matches"], axis=1)
     params = list(df_new.columns)
     params = params[1:]
     min_range = []
